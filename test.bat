@@ -1,4 +1,3 @@
-rem @echo off
 set METASHAPE_PATH="C:\Program Files\Agisoft\Metashape Pro\metashape.exe"
 set SCRIPT_DIR=%~dp0
 
