@@ -25,7 +25,7 @@ import csv
 import pathlib
 from PIL import Image, ImageDraw 
 ######
-Target_area = False
+Target_area = True
 ######
 
 def crosspx(a,b,c,d,f):
@@ -96,6 +96,11 @@ boxx = []
 boxy = []
 boxz = []
 
+arean = []
+areav = []
+box4v = []
+box4vsp = []
+
 #### plant center setup: case 1
 ################################
 mk_id1 = 0
@@ -121,12 +126,24 @@ if Target_area == False:
 		if not os.path.exists('mask' + os.sep+ pname[i]):
 			os.mkdir('mask' + os.sep+pname[i])
 else:
-	print("s")
-	#ff= open(csv_name + ".csv", 'w', newline = '')
-	#writer = csv.writer(ff,lineterminator='\n')
-	#writer.writerow(header)
-print(pcenter)
+	area_path = cur_folder + os.sep + "area.csv"
+	boxx = [-0.25,-0.25,-0.25,-0.25,0.25,0.25,0.25,0.25]
+	with open(area_path,'r') as f1:
+		reader = csv.reader(f1, delimiter = ',')
+		header = next(reader)#header
+		for row in reader:
+			arean.append(row[0].split('_')[0])
+			areav.append(( float(row[1]), float(row[3]) ))
+	for i in range( int(len(areav)/4)):
+		pname.append(arean[4*i])
+		box4v.append( (areav[4*i], areav[4*i+1],areav[4*i+2], areav[4*i+3]) )
+		box4vsp.append( sorted(box4v[i], key=lambda x:(x[0], x[1])   )   )
+		if not os.path.exists('mask' + os.sep+ pname[i]):
+			os.mkdir('mask' + os.sep+pname[i])
+f1.close
 
+
+	
 ################################
 
 cam_num = 0
@@ -148,7 +165,7 @@ for cam_index in range(len(chunk.cameras)):
 	inout2 = 0
 	inout3 = 0
 	
-	for i in range(len(pcenter)):
+	for i in range(len(pname)):
 		inout1 = 0
 		inout2 = 0
 		inout3 = 0
@@ -156,7 +173,25 @@ for cam_index in range(len(chunk.cameras)):
 		im = Image.new('RGB', (4000, 3000), (0, 0, 0))
 		draw = ImageDraw.Draw(im)
 		for k in range(len(boxx)):
-			boxsp = invm.mulp( Metashape.Vector([pcenter[i] + boxx[k] ,   boxy[k],   boxz[k] ]) )
+			if Target_area == False: 
+				boxsp = invm.mulp( Metashape.Vector([pcenter[i] + boxx[k] ,   boxy[k],   boxz[k] ]) )
+			else:
+				if k == 0:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][0][0] ,   box4vsp[i][0][1],   -0.25 ]) )
+				if k == 1:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][0][0] ,   box4vsp[i][0][1],   0.25 ]) )
+				if k == 2:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][1][0] ,   box4vsp[i][1][1],   -0.25 ]) )
+				if k == 3:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][1][0] ,   box4vsp[i][1][1],   0.25 ]) )
+				if k == 4:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][2][0] ,   box4vsp[i][2][1],   -0.25 ]) )
+				if k == 5:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][2][0] ,   box4vsp[i][2][1],   0.25 ]) )
+				if k == 6:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][3][0] ,   box4vsp[i][3][1],   -0.25 ]) )
+				if k == 7:
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][3][0] ,   box4vsp[i][3][1],   0.25 ]) )
 			if(camerasp.project(boxsp) != None):
 				tesd1 = camerasp.project( boxsp)[0]
 				tesd2 = camerasp.project( boxsp)[1]
@@ -165,7 +200,7 @@ for cam_index in range(len(chunk.cameras)):
 				box3Dlist.append( [-1000000,-1000000 ]  )
 		vuse = [[1,5,3,7],[0,3,2,6]]
 		combl = [[0,1],[2,3],[4,5],[6,7],[0,2],[1,3],[4,6],[5,7],[0,4],[1,5],[2,6],[3,7]]
-		
+		#print(box3Dlist)
 		for vn in range(len(boxx)):			
 			################ 
 			################ type1
@@ -173,18 +208,18 @@ for cam_index in range(len(chunk.cameras)):
 			if(inout1 == 1):
 				#print(i,vn)
 				break
-			boxsp =  invm.mulp( Metashape.Vector([pcenter[i] + boxx[vn] ,   boxy[vn], boxz[vn] ]) )
-			if(camerasp.project(boxsp) != None):
-				if (camerasp.project(boxsp)[0] < sensorsp.width and camerasp.project(boxsp)[0] > 0 and camerasp.project(boxsp)[1] < sensorsp.height and camerasp.project(boxsp)[1] > 0 ):
+			if(box3Dlist[vn] != None):
+				if (box3Dlist[vn][0] < sensorsp.width and box3Dlist[vn][0] > 0 and box3Dlist[vn][1] < sensorsp.height and box3Dlist[vn][1] > 0 ):
 					inout1 = 1
 					print(camerasp.label, "test1",pname[i], "point" ,vn,"is in" ,camerasp.project(boxsp) )
 					#whne include-flag is on, all vertex point are calc.
 					#writer.writerow([datesp, flightid,pbed, camerasp.label, pname[i], "test1", "proj_point", box3Dlist ])
 					writer.writerow([datesp, flightid,pbed, camerasp.label, pname[i], "test1"])
 					draw.polygon((*box3Dlist[1],*box3Dlist[5],*box3Dlist[7],*box3Dlist[3]), fill=(255, 255, 255), outline=(255, 255, 255))
-					draw.polygon((*box3Dlist[0],*box3Dlist[3],*box3Dlist[6],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
+					draw.polygon((*box3Dlist[0],*box3Dlist[4],*box3Dlist[6],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 					draw.polygon((*box3Dlist[0],*box3Dlist[1],*box3Dlist[3],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 					draw.polygon((*box3Dlist[4],*box3Dlist[5],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))
+					draw.polygon((*box3Dlist[2],*box3Dlist[3],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))
 					im.save('mask'+os.sep+ pname[i] + os.sep + camerasp.label +'_mask.jpg', quality=95)
 		###########
 		###########		
@@ -212,9 +247,10 @@ for cam_index in range(len(chunk.cameras)):
 				inout2 = 1
 				writer.writerow([datesp, flightid,pbed, camerasp.label,pname[i], "test2", "proj_point", box3Dlist])
 				draw.polygon((*box3Dlist[1],*box3Dlist[5],*box3Dlist[7],*box3Dlist[3]), fill=(255, 255, 255), outline=(255, 255, 255))
-				draw.polygon((*box3Dlist[0],*box3Dlist[3],*box3Dlist[6],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
+				draw.polygon((*box3Dlist[0],*box3Dlist[4],*box3Dlist[6],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 				draw.polygon((*box3Dlist[0],*box3Dlist[1],*box3Dlist[3],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 				draw.polygon((*box3Dlist[4],*box3Dlist[5],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))
+				draw.polygon((*box3Dlist[2],*box3Dlist[3],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))				
 				im.save('mask'+os.sep+ pname[i] + os.sep + camerasp.label +'_mask.jpg', quality=95)
 			#else:
 				#print(test1,test2,test3,test4,camerasp.label,pname[i],"line",ss,"test2","vertex is out")
@@ -281,9 +317,10 @@ for cam_index in range(len(chunk.cameras)):
 					print(camerasp.label,pname[i],"test3","vertex is in")
 				if inout3 == 1:
 					draw.polygon((*box3Dlist[1],*box3Dlist[5],*box3Dlist[7],*box3Dlist[3]), fill=(255, 255, 255), outline=(255, 255, 255))
-					draw.polygon((*box3Dlist[0],*box3Dlist[3],*box3Dlist[6],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
+					draw.polygon((*box3Dlist[0],*box3Dlist[4],*box3Dlist[6],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 					draw.polygon((*box3Dlist[0],*box3Dlist[1],*box3Dlist[3],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 					draw.polygon((*box3Dlist[4],*box3Dlist[5],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))
+					draw.polygon((*box3Dlist[2],*box3Dlist[3],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))
 					im.save('mask'+os.sep+ pname[i] + os.sep + camerasp.label +'_mask.jpg', quality=95)
 					
 ff.close()
