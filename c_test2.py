@@ -24,9 +24,10 @@ import time
 import csv
 import pathlib
 from PIL import Image, ImageDraw 
-######
-Target_area = True
-######
+###### 
+Target_area = False
+###### True = target area imported from csv
+###### False = need setup plant number and scale
 
 def crosspx(a,b,c,d,f):
 	if(a==c):
@@ -76,6 +77,7 @@ chunk = doc.chunk
 camera = Metashape.Camera
 
 invm = Metashape.Matrix.inv(chunk.transform.matrix)
+R = chunk.transform.matrix
 
 date = chunk.cameras[0].photo.meta["Exif/DateTime"]
 datedate = str(date.split()[0])
@@ -99,9 +101,10 @@ boxz = []
 arean = []
 areav = []
 box4v = []
+
 box4vsp = []
 
-#### plant center setup: case 1
+#### plant position setup: case 1
 ################################
 mk_id1 = 0
 mk_id2 = 0
@@ -125,7 +128,7 @@ if Target_area == False:
 		pname.append("plant" + str(i + 1))
 		if not os.path.exists('mask' + os.sep+ pname[i]):
 			os.mkdir('mask' + os.sep+pname[i])
-else:
+else: #### plant position setup: case 2
 	area_path = cur_folder + os.sep + "area.csv"
 	boxx = [-0.25,-0.25,-0.25,-0.25,0.25,0.25,0.25,0.25]
 	with open(area_path,'r') as f1:
@@ -137,13 +140,21 @@ else:
 	for i in range( int(len(areav)/4)):
 		pname.append(arean[4*i])
 		box4v.append( (areav[4*i], areav[4*i+1],areav[4*i+2], areav[4*i+3]) )
-		box4vsp.append( sorted(box4v[i], key=lambda x:(x[0], x[1])   )   )
+		box44v =  sorted(box4v[i], key=lambda x:(x[0], x[1])   ) 
+		if box44v[0][1] > box44v[1][1]:
+			if box44v[2][1] > box44v[3][1]:
+				box4vsp.append( (box44v[1], box44v[0],box44v[3],box44v[2])       )
+			else:
+				box4vsp.append( (box44v[1], box44v[0],box44v[2],box44v[3])       )
+		else:
+			if box44v[2][1] > box44v[3][1]:
+				box4vsp.append( (box44v[0], box44v[1],box44v[3],box44v[2])       )
+			else:
+				box4vsp.append( (box44v[0], box44v[1],box44v[2],box44v[3])       )
 		if not os.path.exists('mask' + os.sep+ pname[i]):
 			os.mkdir('mask' + os.sep+pname[i])
-f1.close
+	f1.close
 
-
-	
 ################################
 
 cam_num = 0
@@ -164,34 +175,39 @@ for cam_index in range(len(chunk.cameras)):
 	inout1 = 0
 	inout2 = 0
 	inout3 = 0
-	
+		
 	for i in range(len(pname)):
 		inout1 = 0
 		inout2 = 0
 		inout3 = 0
+		diff = 0
 		box3Dlist = []
 		im = Image.new('RGB', (4000, 3000), (0, 0, 0))
 		draw = ImageDraw.Draw(im)
+		if Target_area == False:
+			diff = ( pcenter[i] - R.mulp(camerasp.center)[0])**2
+		else:
+			diff = ( R.mulp(camerasp.center)[0] - (box4vsp[i][0][0] + box4vsp[i][1][0] + box4vsp[i][2][0] + box4vsp[i][3][0])/4)**2
 		for k in range(len(boxx)):
 			if Target_area == False: 
 				boxsp = invm.mulp( Metashape.Vector([pcenter[i] + boxx[k] ,   boxy[k],   boxz[k] ]) )
 			else:
 				if k == 0:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][0][0] ,   box4vsp[i][0][1],   -0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][0][0] ,   box4vsp[i][0][1],   -0.35 ]) )
 				if k == 1:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][0][0] ,   box4vsp[i][0][1],   0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][0][0] ,   box4vsp[i][0][1],   0.45 ]) )
 				if k == 2:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][1][0] ,   box4vsp[i][1][1],   -0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][1][0] ,   box4vsp[i][1][1],   -0.35 ]) )
 				if k == 3:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][1][0] ,   box4vsp[i][1][1],   0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][1][0] ,   box4vsp[i][1][1],   0.45 ]) )
 				if k == 4:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][2][0] ,   box4vsp[i][2][1],   -0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][2][0] ,   box4vsp[i][2][1],   -0.35 ]) )
 				if k == 5:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][2][0] ,   box4vsp[i][2][1],   0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][2][0] ,   box4vsp[i][2][1],   0.45 ]) )
 				if k == 6:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][3][0] ,   box4vsp[i][3][1],   -0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][3][0] ,   box4vsp[i][3][1],   -0.35 ]) )
 				if k == 7:
-					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][3][0] ,   box4vsp[i][3][1],   0.25 ]) )
+					boxsp = invm.mulp( Metashape.Vector([box4vsp[i][3][0] ,   box4vsp[i][3][1],   0.45 ]) )
 			if(camerasp.project(boxsp) != None):
 				tesd1 = camerasp.project( boxsp)[0]
 				tesd2 = camerasp.project( boxsp)[1]
@@ -200,6 +216,8 @@ for cam_index in range(len(chunk.cameras)):
 				box3Dlist.append( [-1000000,-1000000 ]  )
 		vuse = [[1,5,3,7],[0,3,2,6]]
 		combl = [[0,1],[2,3],[4,5],[6,7],[0,2],[1,3],[4,6],[5,7],[0,4],[1,5],[2,6],[3,7]]
+		if diff > 3.5:
+			inout1 = 1
 		#print(box3Dlist)
 		for vn in range(len(boxx)):			
 			################ 
@@ -250,7 +268,7 @@ for cam_index in range(len(chunk.cameras)):
 				draw.polygon((*box3Dlist[0],*box3Dlist[4],*box3Dlist[6],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 				draw.polygon((*box3Dlist[0],*box3Dlist[1],*box3Dlist[3],*box3Dlist[2]), fill=(255, 255, 255), outline=(255, 255, 255))
 				draw.polygon((*box3Dlist[4],*box3Dlist[5],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))
-				draw.polygon((*box3Dlist[2],*box3Dlist[3],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))				
+				draw.polygon((*box3Dlist[2],*box3Dlist[3],*box3Dlist[7],*box3Dlist[6]), fill=(255, 255, 255), outline=(255, 255, 255))
 				im.save('mask'+os.sep+ pname[i] + os.sep + camerasp.label +'_mask.jpg', quality=95)
 			#else:
 				#print(test1,test2,test3,test4,camerasp.label,pname[i],"line",ss,"test2","vertex is out")
@@ -326,3 +344,4 @@ for cam_index in range(len(chunk.cameras)):
 ff.close()
 print("error = ", count)
 print("export finish")
+
