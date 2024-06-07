@@ -1,3 +1,4 @@
+![test](https://user-images.githubusercontent.com/74333186/153982668-eebbc20c-86b3-4fa6-b9e6-03ea29afea20.gif)
 ## Sample dataset
 This script set are checked using Metashape pro v1.7.0.<br>
 For ver.2 or later version, script should be edited to run correctly.<br>
@@ -15,8 +16,5 @@ When you want to use your own configuration, some script should be changed.<br>
 make_align.py --> target name<br>
 set_drone_coord.py --> target name, region size and box size.<br>
 
-![test](https://user-images.githubusercontent.com/74333186/153982668-eebbc20c-86b3-4fa6-b9e6-03ea29afea20.gif)
-
-
-### link for a dataset
+## link for a dataset
 https://drive.google.com/file/d/1DGfB4z9Fk9tI_FmqzLYb399E92bQWslB/view?usp=drive_link
