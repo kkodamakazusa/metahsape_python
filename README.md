@@ -19,10 +19,10 @@ Each distances are...<br>
 122-126 = 14.4m<br>
 125-126 = 1.484m<br>
 
-121&nbsp&nbsp&nbsp&nbsp&nbsp125<br>
-|&nbsp&nbsp&nbsp&nbsp&nbsp|<br>
-|&nbsp&nbsp&nbsp&nbsp&nbsp|<br>
-|&nbsp&nbsp&nbsp&nbsp&nbsp|<br>
+121&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;125<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>
 122 _______126<br>
 
 When you want to use your own configuration, some script should be changed.<br>
