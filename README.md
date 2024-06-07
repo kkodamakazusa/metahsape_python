@@ -13,14 +13,16 @@ Probably, you need to change the metashape path for the bat file.
 ### Marker conbination
 In this dataset, 12bit circular coded marker(printed by metashape) were used.<br>
 
-target ID 121,122,125 and 126 were used<br>
+target ID 121,122,125 and 126 were used.<br>
 Each distances are...<br>
+
 121-122 = 1.48m<br>
 122-126 = 14.4m<br>
 125-126 = 1.484m<br>
 
 
 From the front view.<br>
+
 121&emsp;&emsp;&emsp;125<br>
 |&emsp;&emsp;&emsp;&emsp;&emsp;|<br>
 |&emsp;&emsp;&emsp;&emsp;&emsp;|<br>
