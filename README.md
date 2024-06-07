@@ -3,6 +3,12 @@
 This script set are checked using Metashape pro v1.7.0.<br>
 For ver.2 or later version, script should be edited to run correctly.<br>
 
+Put the py and bat files on the same folder of image dataset.<br>
+Then push bat file.<br>
+Metashape perform SfM and output the orthoimage. <br>
+
+Probably, you need to change the metashape path for the bat file.
+
 ### Marker conbination
 In this dataset, 12bit circular coded marker(printed by metashape) were used.<br>
 
