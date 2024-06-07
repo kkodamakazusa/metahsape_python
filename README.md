@@ -1,5 +1,5 @@
 ## Sample dataset
-This script set are for MEtashape 1.7.0.
+This script set are checked using Metashape pro v1.7.0.
 For ver.2 or later version, script should be edited to run correctly.
 
 ### Marker conbination
