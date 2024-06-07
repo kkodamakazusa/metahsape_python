@@ -19,7 +19,7 @@ Each distances are...<br>
 122-126 = 14.4m<br>
 125-126 = 1.484m<br>
 
-121&emsp;&emsp;&emsp;&emsp;&emsp;125<br>
+121&emsp;&emsp;&emsp;125<br>
 |&emsp;&emsp;&emsp;&emsp;&emsp;|<br>
 |&emsp;&emsp;&emsp;&emsp;&emsp;|<br>
 |&emsp;&emsp;&emsp;&emsp;&emsp;|<br>
