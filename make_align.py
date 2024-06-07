@@ -11,7 +11,7 @@ import subprocess
 import glob
 
 markerl = [121,122,125,126]
-scalel = [14.4, 1.484, 1.48 ]
+scalel = [14.4, 1.484, 1.48]
 
 doc = Metashape.app.document
 doc.addChunk()
