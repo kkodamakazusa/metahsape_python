@@ -6,10 +6,10 @@ For ver.2 or later version, script should be edited to run correctly.
 In this dataset, 12bit circular coded marker(printed by metashape) were used.　　
 
 target ID 121,122,125 and 126 were used　　 
-Each distances are...　　
-121-122 = 1.48m　　
-122-126 = 14.4m　　
-125-126 = 1.484m　　
+Each distances are...  　　
+121-122 = 1.48m  　　
+122-126 = 14.4m  　　
+125-126 = 1.484m  　　
 
 When you want to use your own configuration, some script should be changed.
 make_align.py --> target name  
