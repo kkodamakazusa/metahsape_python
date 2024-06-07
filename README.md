@@ -2,7 +2,7 @@
 This script set are for MEtashape 1.7.0.
 For ver.2 or later version, script should be edited to run correctly.
 
-###Marker conbination
+#Marker conbination
 In this dataset, 12bit circular coded marker(printed by metashape) were used.
 
 target ID 121,122,125 and 126 were used 
