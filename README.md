@@ -1,19 +1,19 @@
 ## Sample dataset
-This script set are checked using Metashape pro v1.7.0.
-For ver.2 or later version, script should be edited to run correctly.
+This script set are checked using Metashape pro v1.7.0.<br>
+For ver.2 or later version, script should be edited to run correctly.<br>
 
 ### Marker conbination
-In this dataset, 12bit circular coded marker(printed by metashape) were used.　　
+In this dataset, 12bit circular coded marker(printed by metashape) were used.<br>
 
-target ID 121,122,125 and 126 were used　　 
-Each distances are...  　　
-121-122 = 1.48m  　　
-122-126 = 14.4m  　　
-125-126 = 1.484m  　　
+target ID 121,122,125 and 126 were used<br>
+Each distances are...<br>
+121-122 = 1.48m<br>
+122-126 = 14.4m<br>
+125-126 = 1.484m<br>
 
-When you want to use your own configuration, some script should be changed.
-make_align.py --> target name  
-set_drone_coord.py --> target name, region size and box size.  
+When you want to use your own configuration, some script should be changed.<br>
+make_align.py --> target name<br>
+set_drone_coord.py --> target name, region size and box size.<br>
 
 ![test](https://user-images.githubusercontent.com/74333186/153982668-eebbc20c-86b3-4fa6-b9e6-03ea29afea20.gif)
 
