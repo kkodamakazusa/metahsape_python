@@ -7,7 +7,6 @@ import sys
 import re
 import configparser
 import subprocess
-
 import math
 import datetime
 
