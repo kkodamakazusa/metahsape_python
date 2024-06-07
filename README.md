@@ -19,6 +19,12 @@ Each distances are...<br>
 122-126 = 14.4m<br>
 125-126 = 1.484m<br>
 
+121        125<br>
+|           |<br>
+|           |<br>
+|           |<br>
+122 _______126<br>
+
 When you want to use your own configuration, some script should be changed.<br>
 make_align.py --> target name<br>
 set_drone_coord.py --> target name, region size and box size.<br>
