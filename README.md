@@ -12,9 +12,8 @@ Each distances are...
 122-126 = 14.4m
 125-126 = 1.484m
 
-When you want to use your own configuration, line13-14 should be changed.
-markerl = [121,122,125,126]
-scalel = [14.4, 1.484, 1.48 ]
+When you want to use your own configuration, some script should be changed.
+
 
 ![test](https://user-images.githubusercontent.com/74333186/153982668-eebbc20c-86b3-4fa6-b9e6-03ea29afea20.gif)
 
