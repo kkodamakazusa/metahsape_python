@@ -1,11 +1,12 @@
 ![test](https://user-images.githubusercontent.com/74333186/153982668-eebbc20c-86b3-4fa6-b9e6-03ea29afea20.gif)
 ## Sample dataset
-This script set are checked using Metashape pro v1.7.0.<br>
+This scrips are checked using Metashape pro v1.7.0.<br>
 For ver.2 or later version, script should be edited to run correctly.<br>
 
-Put the py and bat files on the same folder of image dataset.<br>
+### how to use
+Put the py and bat files on the same folder with image files.<br>
 Then push bat file.<br>
-Metashape perform SfM and output the orthoimage. <br>
+Metashape will perform SfM and output the orthoimage. <br>
 
 Probably, you need to change the metashape path for the bat file.
 
