@@ -1,6 +1,8 @@
 ![test](https://user-images.githubusercontent.com/74333186/153982668-eebbc20c-86b3-4fa6-b9e6-03ea29afea20.gif)
 ## Sample dataset
 This scrips are checked using Metashape pro v1.7.0.<br>
+This script use metashape stand alone module, please see the link of "How to install Metashape stand-alone Python module".<br>
+https://agisoft.freshdesk.com/support/solutions/articles/31000148930-how-to-install-metashape-stand-alone-python-module
 For ver.2 or later version, script should be edited to run correctly.<br>
 
 ### how to use
