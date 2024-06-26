@@ -2,7 +2,7 @@
 ## Sample dataset
 This scrips are checked using Metashape pro v1.7.0.<br>
 This script use metashape stand alone module, please see the link of "How to install Metashape stand-alone Python module".<br>
-https://agisoft.freshdesk.com/support/solutions/articles/31000148930-how-to-install-metashape-stand-alone-python-module
+https://agisoft.freshdesk.com/support/solutions/articles/31000148930-how-to-install-metashape-stand-alone-python-module<br>
 For ver.2 or later version, script should be edited to run correctly.<br>
 
 ### how to use
