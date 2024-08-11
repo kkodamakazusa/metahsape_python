@@ -31,7 +31,7 @@ From the front view.<br>
 |&emsp;&emsp;&emsp;&emsp;&emsp;|<br>
 122 _______126<br>
 
-When you want to use your own configuration, some script should be changed.<br>
+When you want to use your own configuration, some script lines should be changed.<br>
 make_align.py --> target name<br>
 set_drone_coord.py --> target name, region size and box size.<br>
 
