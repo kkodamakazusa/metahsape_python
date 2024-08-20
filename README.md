@@ -7,7 +7,7 @@ For ver.2 or later version, script should be edited to run correctly.<br>
 
 ### how to use
 Put the py and bat files on the same folder with image files.<br>
-Then push bat file.<br>
+Then run bat file.<br>
 Metashape will perform SfM and output the orthoimage. <br>
 
 Probably, you need to change the metashape path for the bat file.
