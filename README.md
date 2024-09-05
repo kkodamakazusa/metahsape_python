@@ -36,5 +36,6 @@ make_align.py --> target name<br>
 set_drone_coord.py --> target name, region size and box size.<br>
 
 ## link for a dataset
-https://drive.google.com/file/d/1DGfB4z9Fk9tI_FmqzLYb399E92bQWslB/view?usp=drive_link　(18.5GB google dorive)<br>
-![rename_Desktop](https://github.com/user-attachments/assets/67c53041-a0ba-4f44-b30b-a058f73a2752)
+　(18.5GB google dorive)<br>
+Sample 3D Point Cloud data (ply) https://drive.google.com/file/d/1MiwFI7uoc-KvjH0itYHXtmHZj0dzDLd1/view?usp=drive_link (filesize 250MB)<br>
+![rename_Desktop](https://github.com/user-attachments/assets/ecb89375-9052-4b45-8a9b-06390d2680a2)
