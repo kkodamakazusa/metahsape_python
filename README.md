@@ -5,7 +5,7 @@ This script use metashape stand alone module, please see the link of "How to ins
 https://agisoft.freshdesk.com/support/solutions/articles/31000148930-how-to-install-metashape-stand-alone-python-module<br>
 For ver.2 or later version, script should be edited to run correctly.<br>
 
-### how to use
+### How to use
 Put the py and bat files on the same folder with image files.<br>
 Then run bat file.<br>
 Metashape will perform SfM and output the orthoimage. <br>
@@ -36,6 +36,7 @@ make_align.py --> target name<br>
 set_drone_coord.py --> target name, region size and box size.<br>
 
 ## link for a dataset
-　(18.5GB google dorive)<br>
-[Sample 3D Point Cloud data (ply)](https://drive.google.com/file/d/1MiwFI7uoc-KvjH0itYHXtmHZj0dzDLd1/view?usp=drive_link) (filesize 250MB)<br>
+[Sample Dataset](https://drive.google.com/file/d/169sAq6X1fRkCL8VzDe0M_otHEqyLFVck/view?usp=drive_link)　(Filesize 18.5GB)<br>
+[Sample 3D Point Cloud data (ply)](https://drive.google.com/file/d/1MiwFI7uoc-KvjH0itYHXtmHZj0dzDLd1/view?usp=drive_link) (Filesize 250MB)<br>
 ![rename_Desktop](https://github.com/user-attachments/assets/ecb89375-9052-4b45-8a9b-06390d2680a2)
+
