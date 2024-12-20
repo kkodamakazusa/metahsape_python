@@ -1,5 +1,6 @@
 #part of script for performing the camera align by Metashape [1.7.0]
 #not include special code, just the nominal usage of metashape api
+# metashape official forum is good resource tfor scripting
 #2021/04/22
 
 import Metashape
